@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+body{margin:0 auto;min-width:980px;background:url("../../images/layout/light.png") no-repeat center top #1c77ac;overflow:hidden;}
+form{margin:0}}
+ul{display:block;margin:0;padding:0;list-style:none;}
+li{display:block;margin:0;padding:0;list-style:none;}
+img{border:0;}
+img:hover{cursor:pointer;}
+dl,dt,dd{margin:0;padding:0;display:block}
+a,a:focus{text-decoration:none;font-weight:bolder;}
+a:hover{color:#00a4ac;text-decoration:none;}
+table{border-collapse:collapse;border-spacing:0}
+/* cloud */
+#mainBody{width:100%;height:100%;absolute:absolute;z-index:-3}
+.cloud{position:absolute;top:0px;left:0px;width:100%;height:100%;background:url("../../images/layout/cloud.png") no-repeat;z-index:-2;}
+#cloud2{z-index:-1}
+/*login*/
+.logintop{height:47px;width:100%;position:absolute;top:0;background-color:#15557A;z-index:100;;}
+.logintop div{color:#fff;line-height:47px;background:url("../../images/layout/loginsj.png") no-repeat 21px 18px;text-indent:44px;color:#afc5d2;float:left}
+.logintop ul{float:right;padding-right:30px;margin:0px}
+.logintop ul li{float:left;margin-left:20px;line-height:47px;}
+.logintop ul li a{color:#afc5d2}
+.logintop ul li a:hover{color:#fff}
+.loginbody{background:url("../../images/layout/loginbg3.png") no-repeat center center;width:100%;height:585px;overflow:hidden;position:absolute;top:47px;}
+.systemlogo{background:url("../../images/layout/web-logo.png") no-repeat center center;width:100%;height:71px;margin-top:75px}
+.loginbox{width:692px;height:336px;background:url("../../images/layout/logininfo.png") no-repeat;margin:38px auto;}
+.loginbox ul{padding-top:60px;margin-left:285px}
+.loginbox ul li{margin-bottom:13px;height:35px;line-height:35px}
+.form-control{height:35px;line-height:35px;}
+.form-control.col-8,.form-control.col-5:{height:35px;line-height:35px;}
+.alert.alert-danger{background-color:#F2DEDE;width:280px;height:40px;display: none;border-radius:6px;text-indent:20px;font-size:9px;}
+#loginName{width:280px;background:url(../../images/layout/loginuser.png) no-repeat;border:none;padding-left:44px;font-size:12px;}
+#password{width:280px;background:url(../../images/layout/loginpassword.png) no-repeat;border:none;padding-left:44px;}
+#passKey{width:130px;font-size:12px;float:left}
+#passkey_img{height:40px;width:100px;margin-left:20px;}
+.btn.btn-primary{width:60px;height:30px;}
+.loginbottom{height:40px;line-height:40px;text-align:center;background-color:#eee;width:100%;bottom:0;position:absolute;}
