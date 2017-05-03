@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>lightweb</artifactId>
+        <groupId>org.bluedon</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>lightweb-frame</artifactId>
+    <name>lightweb-frame Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+    <build>
+        <finalName>lightweb-frame</finalName>
+    </build>
+    <dependencies>
+    	<dependency>
+    		<groupId>org.bluedon</groupId>
+    		<artifactId>lightweb-common</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    	</dependency>
+    </dependencies>
+</project>

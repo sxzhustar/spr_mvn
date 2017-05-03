@@ -39,7 +39,7 @@ public class SysUser implements Serializable {
 	private String regIp;
 	
 	@Column(name="reg_time")
-	private Date regIime;
+	private Date regTime;
 	
 	@Column(name="last_login_time")
 	private Date lastLoginTime;
@@ -123,11 +123,11 @@ public class SysUser implements Serializable {
 	}
 
 	public Date getRegIime() {
-		return regIime;
+		return regTime;
 	}
 
 	public void setRegIime(Date regIime) {
-		this.regIime = regIime;
+		this.regTime = regIime;
 	}
 
 	public Date getLastLoginTime() {

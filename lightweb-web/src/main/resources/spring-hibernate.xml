@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:c="http://www.springframework.org/schema/c" 
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:lang="http://www.springframework.org/schema/lang" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<property name="initialSize" value="0" />
+		<property name="maxActive" value="20" />
+		<property name="minIdle" value="0" />
+		<property name="maxWait" value="60000" />
+
+		<property name="poolPreparedStatements" value="true" /> 
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="33" />
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<ref bean="slf4j-filter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="10000" />
+		<property name="logSlowSql" value="true" />
+	</bean>
+
+	<bean id="slf4j-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="statementExecutableSqlLogEnable" value="true"/>
+	</bean>
+
+	<!-- hibernate session -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<!-- 配置Session的上下文 -->
+				<!--<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>-->
+			</props>
+		</property>
+
+		<!-- auto scan annotation for hiberante config -->
+		<property name="packagesToScan">
+			<list>
+				<value>org.bluedon.lightweb.common.entity</value>
+				<value>org.bluedon.lightweb.frame.entity</value>
+				<value>org.bluedon.lightweb.web.entity</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 事务管理器 -->
+	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!--注解事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"  order="0" proxy-target-class="true"/>
+
+	<!--事务切面-->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="append*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="saveOrUpdate*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="init" propagation="REQUIRED" />
+			<tx:method name="delAndInit" propagation="REQUIRED" />
+			<tx:method name="repair*" propagation="REQUIRED" />
+			<tx:method name="upload*" propagation="REQUIRED" />
+			<tx:method name="roleEdit*" propagation="REQUIRED" />
+
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="datagrid*" propagation="REQUIRED" read-only="true" />
+
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!--日志切面（切service层）-->
+<!-- 	<bean id="logAdvise" class="com.ycsys.smartmap.sys.advise.LogAdvise"></bean> -->
+
+	<!--异常切面(切controller层)-->
+<!-- 	<bean id="exceptionAdvice" class="com.ycsys.smartmap.sys.advise.ExceptionAdvise"></bean> -->
+
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution(* org.bluedon.lightweb..service.impl.*.*(..))" />
+		<aop:pointcut id="transactionPointcut2" expression="execution(* org.bluedon.lightweb..dao.impl.*.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
+		<aop:advisor pointcut-ref="transactionPointcut2" advice-ref="transactionAdvice"/>
+<!-- 		<aop:aspect ref="exceptionAdvice" order="2"> -->
+<!-- 			<aop:pointcut id="exPoint" expression="execution(* com.ycsys.smartmap..controller.*.*(..))" /> -->
+<!-- 			<aop:after-throwing method="error" pointcut-ref="exPoint" throwing="ex"/> -->
+<!-- 		</aop:aspect> -->
+<!-- 		<aop:aspect ref="logAdvise" order="1"> -->
+<!-- 			<aop:pointcut id="logPoint" expression="execution(* org.bluedon.lightweb..service.impl.*.*(..))" /> -->
+<!-- 			<aop:around method="invoke" pointcut-ref="logPoint"/> -->
+<!-- 		</aop:aspect> -->
+	</aop:config>
+</beans>

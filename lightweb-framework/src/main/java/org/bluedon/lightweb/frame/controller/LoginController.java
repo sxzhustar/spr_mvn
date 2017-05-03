@@ -117,6 +117,7 @@ public class LoginController {
 		SysUser user = (SysUser)subject.getPrincipal();
 		List<SysResource> list = resourceService.findByUser(user);
 		map.addAttribute("resList", list);
+		map.addAttribute("user",user);
 		return "layout/main";
 	}
 	

@@ -52,12 +52,13 @@
 		$("#middle,#middle-left,#middle-right,#rightFrame").height(bodyH);
 		$("#middle").width(bodyW);
 	}
+	
 </script>
 </head>
 <body>
 	<div id="top" style="background:url(${rs}/images/layout/topbg.gif) repeat-x;height: 88px;width: 100%">
 		<div class="topleft">
-			<a href="javascript:;"><img alt="系统首页" src="${rs}/images/web-logo.png"></a>
+			<a href="javascript:;"><img alt="系统首页" src="${rs}/images/layout/web-logo.png"></a>
 		</div>
 		<ul class="nav">
 			<c:forEach var="res" items="${resList}">
@@ -65,6 +66,7 @@
 					<li>
 						<a href="javascript:;" id="sys_${res.id}" onclick="changeList('sys_${res.id}')">
 							<img alt="${res.resource_name}" src="${rs}/images/layout/${res.resource_icon}.png">
+							<br>${res.resource_name}
 						</a>
 					</li>
 				</c:if>
@@ -74,10 +76,10 @@
 			<ul>
 				<li><a href="javascript:;">首页</a>
 				<li><a href="" target="rightFrame">信息维护</a>
-				<li><a href="" target="_parent">退出</a>
+				<li><a href="javascript:;" target="_blank" onclick="javascript:window.location='${path}/logout.do'">退出</a>
 			</ul>
 			<div class="user">
-				<span>user.userName</span>
+				<span>${user.userName}</span>
 			</div>
 		</div>
 	</div>
