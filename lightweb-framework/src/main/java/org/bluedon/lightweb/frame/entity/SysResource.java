@@ -2,9 +2,13 @@ package org.bluedon.lightweb.frame.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -17,59 +21,78 @@ public class SysResource implements Serializable{
  	* 主键
  	*/
 	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
    	private Integer id;
  	/**
  	* 上级id
  	*/
+	@Column(name="parent_id")
    	private Integer parentId;
  	/**
  	* 资源名称
  	*/
+	@Column(name="resource_name")
    	private String resourceName;
  	/**
  	* 资源路径
  	*/
+	@Column(name="resource_path")
    	private String resourcePath;
  	/**
  	* 资源图标
  	*/
+	@Column(name="resource_icon")
    	private String resourceIcon;
  	/**
  	* 层级（1-系统,2-模块, 3-菜单，4-按钮）
  	*/
+	@Column(name="level")
    	private Integer level;
  	/**
  	* 资源描述
  	*/
+	@Column(name="resource_desc")
    	private String resourceDesc;
  	/**
  	* 权限字符串
  	*/
+	@Column(name="permission_str")
    	private String permissionStr;
  	/**
  	* 排序
  	*/
+	@Column(name="order_num")
    	private Integer orderNum;
  	/**
  	* 是否启用
  	*/
+	@Column(name="is_enable")
    	private Integer isEnable;
  	/**
  	* 创建人id
  	*/
+	@Column(name="create_user_id")
    	private Integer createUserId;
  	/**
  	* 创建时间
  	*/
+	@Column(name="create_time")
    	private java.util.Date createTime;
  	/**
  	* 修改人id
  	*/
+	@Column(name="modify_user_id")
    	private Integer modifyUserId;
  	/**
  	* 修改时间
  	*/
+	@Column(name="modify_time")
    	private java.util.Date modifyTime;
+   	
+   	@Transient
+   	@Column(name="role_id")
+   	private Integer roleId;
 
 
    	public void setId(Integer id){
@@ -182,6 +205,14 @@ public class SysResource implements Serializable{
 
    	public java.util.Date getModifyTime(){
 		return modifyTime;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 }
 

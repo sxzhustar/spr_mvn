@@ -1,6 +1,6 @@
 package org.bluedonlightweb.frame;
 
-import org.bluedon.lightweb.frame.service.impl.UserServiceImpl;
+import org.bluedon.lightweb.frame.service.impl.SysUserServiceImpl;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ public class Main {
 	SessionFactory sessionFactory;
 	
 	@Autowired
-	UserServiceImpl userService;
+	SysUserServiceImpl userService;
 	
 	@Test
 	public void findUser(){

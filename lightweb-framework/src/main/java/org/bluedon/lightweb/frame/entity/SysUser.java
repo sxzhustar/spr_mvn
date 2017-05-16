@@ -10,11 +10,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name="t_sys_user")
 public class SysUser implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4471974173023374082L;
+	/**
+     * 检查类型_账户名称
+     */
+    public static final String CHECK_TYPE_ACCOUNT="1";
+    /**
+     * 检查类型_电子邮箱
+     */
+    public static final String CHECK_TYPE_EMAIL="2";
+    /**
+     * 检查类型_手机号码
+     */
+    public static final String CHECK_TYPE_MOBILEPHONE="3";
+    /**
+     * 检查类型_身份证号
+     */
+    public static final String CHECK_TYPE_IDNUMBER="4";
+    
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id",unique=true)

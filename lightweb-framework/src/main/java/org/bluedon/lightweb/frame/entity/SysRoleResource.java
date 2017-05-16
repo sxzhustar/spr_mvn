@@ -2,9 +2,11 @@ package org.bluedon.lightweb.frame.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -17,16 +19,18 @@ public class SysRoleResource implements Serializable{
  	* 主键
  	*/
 	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
    	private Integer id;
  	/**
  	* 角色id
  	*/
-	@JoinColumn(name="role_id")
-   	private Integer rowId;
+	@Column(name="role_id")
+   	private Integer roleId;
  	/**
  	* 资源id
  	*/
- 	@JoinColumn(name="resource_id")
+ 	@Column(name="resource_id")
    	private Integer resourceId;
 
 
@@ -38,12 +42,12 @@ public class SysRoleResource implements Serializable{
 		return id;
 	}
 
-	public Integer getRowId() {
-		return rowId;
+	public Integer getRoleId() {
+		return roleId;
 	}
 
-	public void setRowId(Integer rowId) {
-		this.rowId = rowId;
+	public void setRowId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	public Integer getResourceId() {

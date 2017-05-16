@@ -3,9 +3,16 @@ package org.bluedon.lightweb.frame.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="t_sys_role")
@@ -35,38 +42,48 @@ public class SysRole implements Serializable{
  	* 主键
  	*/
 	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
    	private Integer id;
  	/**
  	* 角色名称
  	*/
+	@Column(name="role_name")
    	private String roleName;
  	/**
  	* 角色类型(1-超级管理员 2-管理员 3-发布方 4-超级管理员)
  	*/
+	@Column(name="role_type")
    	private Integer roleType;
  	/**
  	* 状态(1-启用 2-禁用 3-删除)
  	*/
+	@Column(name="role_status")
    	private Integer roleStatus;
  	/**
  	* 创建人id
  	*/
+	@Column(name="create_user_id")
    	private Integer createUserId;
  	/**
  	* 创建时间
  	*/
+	@Column(name="create_time")
    	private Date createTime;
  	/**
  	* 修改人id
  	*/
+   	@Column(name="modify_user_id")
    	private Integer modifyUserId;
  	/**
  	* 修改时间
  	*/
+   	@Column(name="modify_time")
    	private Date modifyTime;
  	/**
  	* 角色描述
  	*/
+   	@Column(name="role_desc")
    	private String roleDesc;
 
 

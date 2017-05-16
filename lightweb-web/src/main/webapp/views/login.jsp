@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="layout/taglib.jsp" %>
+<%@include file="common/global.jsp" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -31,8 +31,8 @@
 		<form id="loginForm" action="${ctx}/login.do" method="post" class="loginForm">
 			<div class="loginbox">
 				<ul>
-					<li>
-						<div id="warnInfo" class="alert alert-danger" style="dispalay:none;">
+					<li id="warnInfo" style="display:none">
+						<div id="msgInfo" class="alert alert-danger">
 							<label id="msgShow">${warn}</label>
 						</div>
 					</li>
@@ -85,9 +85,10 @@
 		var str = !user?"用户名不能为空":!psd?"密码不能为空":!pkey?"验证码不能为空":"";
 		if(!str){
 			$("#loginForm").submit();
+		}else{
+			$("#msgShow").text(str);
+			$("#warnInfo").show();
 		}
-		$("#msgShow").text(str);
-		$("#warnInfo").show();
 	}
 	
 	//刷新验证码

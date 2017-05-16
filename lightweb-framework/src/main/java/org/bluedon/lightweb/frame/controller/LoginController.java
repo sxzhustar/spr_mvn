@@ -11,10 +11,11 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
+import org.bluedon.lightweb.common.utils.web.CaptchaUtil;
 import org.bluedon.lightweb.frame.entity.SysResource;
 import org.bluedon.lightweb.frame.entity.SysUser;
 import org.bluedon.lightweb.frame.service.ISysResourceService;
-import org.bluedon.lightweb.frame.service.IUserService;
+import org.bluedon.lightweb.frame.service.ISysUserService;
 import org.bluedon.lightweb.frame.shiro.IncorrectCaptchaException;
 import org.bluedon.lightweb.frame.shiro.ShiroUser;
 import org.slf4j.Logger;
@@ -25,8 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bluedon.lightweb.common.utils.sys.CaptchaUtil;
-
 @Controller
 public class LoginController {
 
@@ -34,7 +33,7 @@ public class LoginController {
 	
 	@Autowired
 	@Qualifier("userService")
-	private IUserService userService;
+	private ISysUserService userService;
 	
 	@Autowired
 	@Qualifier("resourceService")
